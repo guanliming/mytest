@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 @Slf4j
 public class LoginFilter implements Filter {
 
-	private static final List<String> ignoreURI = Arrays.asList("login");
+	private static final List<String> ignoreURI = Arrays.asList("register");
 
 	@Override
 	public void destroy() {
@@ -46,14 +46,15 @@ public class LoginFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
-//		final String uri = hsreq.getRequestURI();
-//		for (final String eachURI : ignoreURI) {
-//			if (uri.indexOf(eachURI) != -1) {
-//				chain.doFilter(request, response);
-//				return;
-//			}
-//		}
+		final String uri = hsreq.getRequestURI();
+		for (final String eachURI : ignoreURI) {
+			if (uri.indexOf(eachURI) != -1) {
+				chain.doFilter(request, response);
+				return;
+			}
+		}
 //		hsresp.sendRedirect("/test-action/login");
+//		hsreq.getRequestDispatcher("/registerPage").forward(request, response);
 		hsreq.getRequestDispatcher("/login").forward(request, response);
 	}
 
