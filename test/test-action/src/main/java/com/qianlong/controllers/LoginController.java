@@ -13,8 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 	
 	@RequestMapping("/login")
-	public ModelAndView login(){
-		return new ModelAndView("forward:/WEB-INF/views/login.jsp");
+	public ModelAndView gotoLoginPage(){
+		return new ModelAndView("login");
+//		return new ModelAndView("forward:/WEB-INF/views/login.jsp");
 	}
 	
 	
