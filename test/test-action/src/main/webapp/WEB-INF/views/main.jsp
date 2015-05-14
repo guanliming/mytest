@@ -7,7 +7,7 @@
 <title>主页面</title>
 </head>
 <body>
-		你好呀，${username}，欢迎登录！<a href="http://localhost:8080/test-action/signout">注销</a></br>
+		你好呀，${sessionScope.SESSION_LOGIN_NAME}，欢迎登录！<a href="http://localhost:8080/test-action/signout">注销</a></br>
 		<a href="http://localhost:8080/test-action/registerPage">我要借款</a>
 		<a href="http://localhost:8080/test-action/registerPage">我要还款</a>
 </body>

@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author 管黎明
- * 
+ *
  *         All rights reserved.
  */
 @Slf4j
@@ -38,14 +38,14 @@ public class LoginFilter implements Filter {
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 		final HttpServletRequest hsreq = (HttpServletRequest) request;
-//		final HttpServletResponse hsresp = (HttpServletResponse) response;
-		final String name = hsreq.getParameter("name");
 		final HttpSession session = hsreq.getSession();
-		final String loginNameFromSession = String.valueOf(session.getAttribute(SESSION_LOGIN_NAME));
-		if (!StringUtils.isBlank(loginNameFromSession) && StringUtils.equals(loginNameFromSession, name)) {
+		//判断是否已经登陆
+		final Object loginNameFromSession = session.getAttribute(SESSION_LOGIN_NAME);
+		if (loginNameFromSession!=null &&!StringUtils.isBlank(String.valueOf(loginNameFromSession)) ) {
 			chain.doFilter(request, response);
 			return;
 		}
+		//判断是否是非验证登陆url
 		final String uri = hsreq.getRequestURI();
 		for (final String eachURI : ignoreURI) {
 			if (uri.indexOf(eachURI) != -1) {
@@ -53,8 +53,10 @@ public class LoginFilter implements Filter {
 				return;
 			}
 		}
-//		hsresp.sendRedirect("/test-action/login");
-//		hsreq.getRequestDispatcher("/registerPage").forward(request, response);
+		// hsresp.sendRedirect("/test-action/login");
+		// hsreq.getRequestDispatcher("/registerPage").forward(request,
+		// response);
+		//需验证的url但却没登陆，转向登陆页面
 		hsreq.getRequestDispatcher("/login").forward(request, response);
 	}
 
