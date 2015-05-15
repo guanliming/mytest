@@ -10,4 +10,6 @@ import com.qianlong.UserEntry;
 public interface IUserBiz {
 	
 	boolean insert(final UserEntry user);
+	
+	UserEntry query(final String name);
 }

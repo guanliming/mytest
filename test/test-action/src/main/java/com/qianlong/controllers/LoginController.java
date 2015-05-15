@@ -2,12 +2,15 @@ package com.qianlong.controllers;
 
 import static com.qianlong.constants.SystemConstant.SESSION_LOGIN_NAME;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qianlong.RegisterParamBo;
@@ -24,6 +27,15 @@ public class LoginController {
 	@Autowired
 	private IUserBiz userBiz;
 
+	@RequestMapping("/account.validate")
+	public @ResponseBody
+	String accountValidate(final HttpServletRequest request, final Model model) {
+		if (userBiz.query(request.getParameter("account")) == null) {
+			return "false";
+		}
+		return "true";
+	}
+
 	@RequestMapping("/login")
 	public ModelAndView indexPage() {
 		return new ModelAndView("index");
@@ -35,7 +47,7 @@ public class LoginController {
 		final ModelAndView mv = new ModelAndView("main");
 		// mv.addObject("username", param.getUsername());
 		session.setAttribute(SESSION_LOGIN_NAME, param.getUsername());
-		final UserEntry user=new UserEntry();
+		final UserEntry user = new UserEntry();
 		user.setName(param.getUsername());
 		userBiz.insert(user);
 		return mv;

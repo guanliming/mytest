@@ -18,8 +18,8 @@ http://www.springframework.org/schema/context/spring-context.xsd
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-	<!-- <mvc:view-controller path="/login" -->
-	<!-- view-name="forward:/login" /> -->
+<!-- 	<mvc:view-controller path="*.validate" -->
+<!-- 	view-name="forward:/login" /> -->
 
 
 	<bean
