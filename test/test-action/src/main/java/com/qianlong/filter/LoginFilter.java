@@ -15,8 +15,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -24,7 +22,6 @@ import org.apache.commons.lang3.StringUtils;
  *
  *         All rights reserved.
  */
-@Slf4j
 public class LoginFilter implements Filter {
 
 	private static final List<String> ignoreURI = Arrays.asList("register");

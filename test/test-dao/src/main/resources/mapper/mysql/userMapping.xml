@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qianlong.dao.IUserDao">
+	<select id="query" parameterType="java.lang.String" resultType="com.qianlong.UserEntry">
+		select id ,name from dawn.user where name =#{name}
+	</select>
+	
+	<insert id="insert" parameterType="com.qianlong.UserEntry">
+		insert into dawn.user (name)values (#{name})
+	</insert>
+</mapper>

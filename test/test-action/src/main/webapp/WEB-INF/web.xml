@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
 	license agreements. See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership. The ASF licenses this file to 
@@ -22,9 +22,16 @@
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	
+	 <listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+    </listener>  
+    <context-param>  
+        <param-name>contextConfigLocation</param-name>  
+        <param-value>classpath:/spring-config.xml</param-value>  
+    </context-param>  
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -40,7 +47,8 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<!-- <url-pattern>/*</url-pattern> -->
+		<servlet-name>spring</servlet-name>
 	</filter-mapping>
 
 	<filter>
@@ -49,7 +57,8 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>loginFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<!-- <url-pattern>/*</url-pattern> -->
+		<servlet-name>spring</servlet-name>
 	</filter-mapping>
 
 	<servlet>
@@ -57,7 +66,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/spring-servlet.xml</param-value>
+			<param-value>classpath:/spring/spring-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -65,5 +74,10 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<!-- session超时时间30分钟 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
 
 </web-app>
