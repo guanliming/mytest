@@ -5,6 +5,7 @@ import static com.qianlong.constants.SystemConstant.SESSION_LOGIN_NAME;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ import com.qianlong.biz.IUserBiz;
 
 /**
  * @author 管黎明
- * 
+ *
  *         All rights reserved.
  */
 @Controller
@@ -28,12 +29,11 @@ public class LoginController {
 	private IUserBiz userBiz;
 
 	@RequestMapping("/account.validate")
-	public @ResponseBody
-	String accountValidate(final HttpServletRequest request, final Model model) {
+	public @ResponseBody String accountValidate(final HttpServletRequest request, final Model model) {
 		if (userBiz.query(request.getParameter("account")) == null) {
-			return "false";
+			return "true";
 		}
-		return "true";
+		return "false";
 	}
 
 	@RequestMapping("/login")
@@ -49,6 +49,7 @@ public class LoginController {
 		session.setAttribute(SESSION_LOGIN_NAME, param.getUsername());
 		final UserEntry user = new UserEntry();
 		user.setName(param.getUsername());
+		user.setPassword(param.getPassword());
 		userBiz.insert(user);
 		return mv;
 	}
@@ -56,6 +57,23 @@ public class LoginController {
 	@RequestMapping("/registerPage")
 	public ModelAndView registerPage() {
 		return new ModelAndView("registerPage");
+	}
+
+	@RequestMapping("/signin")
+	public ModelAndView signin(final HttpServletRequest request, final HttpSession session) {
+		String username = request.getParameter("username");
+		UserEntry user = userBiz.query(username);
+		if (user != null && StringUtils.equals(user.getPassword(), request.getParameter("password"))) {
+			session.setAttribute(SESSION_LOGIN_NAME, username);
+			return new ModelAndView("main");
+		}
+		return signInPage();
+	}
+
+	@RequestMapping("/signinPage")
+	public ModelAndView signInPage() {
+		return new ModelAndView("signinPage");
+
 	}
 
 	@RequestMapping("/signout")

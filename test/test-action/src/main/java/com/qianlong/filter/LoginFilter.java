@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class LoginFilter implements Filter {
 
-	private static final List<String> ignoreURI = Arrays.asList("register",".validate");
+	private static final List<String> ignoreURI = Arrays.asList("register",".validate","signin");
 
 	@Override
 	public void destroy() {
