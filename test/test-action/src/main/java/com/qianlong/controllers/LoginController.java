@@ -36,6 +36,11 @@ public class LoginController {
 		return "false";
 	}
 
+	@RequestMapping("/")
+	public ModelAndView defaultRequest() {
+		return indexPage();
+	}
+
 	@RequestMapping("/login")
 	public ModelAndView indexPage() {
 		return new ModelAndView("index");
@@ -56,7 +61,7 @@ public class LoginController {
 		userBiz.insert(user);
 		return mv;
 	}
-	
+
 	@RequestMapping("/registerPage")
 	public ModelAndView registerPage() {
 		return new ModelAndView("registerPage");

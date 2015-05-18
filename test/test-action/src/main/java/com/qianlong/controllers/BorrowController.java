@@ -1,5 +1,8 @@
 package com.qianlong.controllers;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +19,7 @@ import com.qianlong.constants.SystemConstant;
 
 /**
  * @author 管黎明
- * 
+ *
  *         All rights reserved.
  */
 @Controller
@@ -32,13 +35,25 @@ public class BorrowController {
 			return new ModelAndView("redirect:/borrowPage");
 		}
 		biz.save(param, userBiz.query((String) session.getAttribute(SystemConstant.SESSION_LOGIN_NAME)).getId());
-		return new ModelAndView("borrowSuccessPage");
+		ModelAndView mv = new ModelAndView("borrowSuccessPage");
+		DecimalFormat df = new DecimalFormat("#.00");
+		mv.addObject("monthlyRepay", df.format(calculateMonthlyRepay(param).doubleValue()));
+//		mv.addObject("period", param.getPeriod());
+//		mv.addObject("borrowAmount",param.getBorrowAmount());
+		return mv;
 
 	}
 
 	@RequestMapping("/borrowPage")
 	public ModelAndView borrowPage() {
 		return new ModelAndView("borrowPage");
+	}
+
+	private BigDecimal calculateMonthlyRepay(final BorrowParamBo param) {
+		BigDecimal result =new BigDecimal(new BigDecimal(param.getBorrowAmount().multiply(new BigDecimal(SystemConstant.DAILY_RATE)).doubleValue()
+				* param.getPeriod() * 30).add(param.getBorrowAmount()).doubleValue()/param.getPeriod());
+		result.setScale(2,BigDecimal.ROUND_DOWN);
+		return result;
 	}
 
 	private boolean validateBeforeBorrow(final BorrowParamBo param) {

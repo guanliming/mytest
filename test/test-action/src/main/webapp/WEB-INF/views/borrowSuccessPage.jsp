@@ -7,6 +7,8 @@
 <title>借款成功</title>
 </head>
 <body>
-
+	${sessionScope.SESSION_LOGIN_NAME}，您已成功借款${param.borrowAmount}元。</br>
+	您将进行为期${param.period}个月的分期付款，每期的应还金额为${monthlyRepay} !
+	   
 </body>
 </html>
