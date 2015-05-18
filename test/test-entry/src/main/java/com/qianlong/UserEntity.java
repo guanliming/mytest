@@ -8,7 +8,7 @@ import lombok.Data;
  *         All rights reserved.
  */
 @Data
-public class UserEntry {
+public class UserEntity {
 	private long id;
 	private String name;
 	private String password;

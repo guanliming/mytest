@@ -2,7 +2,7 @@ package com.qianlong.dao;
 
 import org.springframework.stereotype.Repository;
 
-import com.qianlong.UserEntry;
+import com.qianlong.UserEntity;
 
 /**
  * @author 管黎明
@@ -12,8 +12,8 @@ import com.qianlong.UserEntry;
 @Repository
 public interface IUserDao {
 
-	UserEntry query(final String name);
+	UserEntity query(final String name);
 	
-	boolean insert(final UserEntry user);
+	boolean insert(final UserEntity user);
 
 }

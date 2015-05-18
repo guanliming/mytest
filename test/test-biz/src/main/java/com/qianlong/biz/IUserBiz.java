@@ -1,6 +1,6 @@
 package com.qianlong.biz;
 
-import com.qianlong.UserEntry;
+import com.qianlong.UserEntity;
 
 /**
  * @author 管黎明
@@ -9,7 +9,7 @@ import com.qianlong.UserEntry;
  */
 public interface IUserBiz {
 	
-	boolean insert(final UserEntry user);
+	boolean insert(final UserEntity user);
 	
-	UserEntry query(final String name);
+	UserEntity query(final String name);
 }

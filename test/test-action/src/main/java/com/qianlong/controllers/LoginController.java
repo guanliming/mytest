@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qianlong.RegisterParamBo;
-import com.qianlong.UserEntry;
+import com.qianlong.UserEntity;
 import com.qianlong.biz.IUserBiz;
 
 /**
@@ -44,16 +44,19 @@ public class LoginController {
 
 	@RequestMapping("/register")
 	public ModelAndView register(@ModelAttribute final RegisterParamBo param, final HttpSession session) {
+		if(!validateBeforeRegister(param)){
+			return indexPage();
+		}
 		final ModelAndView mv = new ModelAndView("main");
 		// mv.addObject("username", param.getUsername());
 		session.setAttribute(SESSION_LOGIN_NAME, param.getUsername());
-		final UserEntry user = new UserEntry();
+		final UserEntity user = new UserEntity();
 		user.setName(param.getUsername());
 		user.setPassword(param.getPassword());
 		userBiz.insert(user);
 		return mv;
 	}
-
+	
 	@RequestMapping("/registerPage")
 	public ModelAndView registerPage() {
 		return new ModelAndView("registerPage");
@@ -61,8 +64,8 @@ public class LoginController {
 
 	@RequestMapping("/signin")
 	public ModelAndView signin(final HttpServletRequest request, final HttpSession session) {
-		String username = request.getParameter("username");
-		UserEntry user = userBiz.query(username);
+		final String username = request.getParameter("username");
+		final UserEntity user = userBiz.query(username);
 		if (user != null && StringUtils.equals(user.getPassword(), request.getParameter("password"))) {
 			session.setAttribute(SESSION_LOGIN_NAME, username);
 			return new ModelAndView("main");
@@ -81,6 +84,13 @@ public class LoginController {
 		// session.removeAttribute(SESSION_LOGIN_NAME);
 		session.invalidate();
 		return indexPage();
+	}
+
+	private boolean validateBeforeRegister(final RegisterParamBo param){
+		if(StringUtils.isBlank(param.getUsername())||StringUtils.isBlank(param.getPassword())){
+			return false;
+		}
+		return true;
 	}
 
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
 		你好呀，${sessionScope.SESSION_LOGIN_NAME}，欢迎登录！<a href="http://localhost:8080/test-action/signout">注销</a></br>
-		<a href="http://localhost:8080/test-action/registerPage">我要借款</a>
-		<a href="http://localhost:8080/test-action/registerPage">我要还款</a>
+		<a href="http://localhost:8080/test-action/borrowPage">我要借款</a>
+		<a href="http://localhost:8080/test-action/givebackPage">我要还款</a>
 </body>
 </html>
