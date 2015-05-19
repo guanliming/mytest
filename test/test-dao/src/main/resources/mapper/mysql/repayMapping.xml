@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.qianlong.dao.IRepayDao">
+	<resultMap type="com.qianlong.RepayEntity" id="repayMap">
+		<id property="id" column="id" />
+		<result property="actualShouldRepay" column="actual_should_repay" />
+		<result property="borrowId" column="borrow_id" />
+		<result property="period" column="period" />
+		<result property="repay" column="repay" />
+		<result property="shouldRepay" column="should_repay" />
+	</resultMap>
+
+	<select id="queryByBorrowId" parameterType="java.lang.Long"
+		resultMap="repayMap">
+		select * from dawn.repay where borrow_id = #{borrowId} order by period
+	</select>
+	
+	<select id="queryByBorrowIdAndPeriod" 
+		resultMap="repayMap">
+		select * from dawn.repay where borrow_id = #{0} and period=#{1}
+	</select>
+
+
+</mapper>

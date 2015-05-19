@@ -16,6 +16,7 @@ public class BorrowEntity {
 	private Date borrowTime;
 	private String borrowType;
 	private long borrowUserId;
+	private String completelyPayOff;
 	private long id;
 	private BigDecimal onAccount;
 	private byte period;

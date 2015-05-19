@@ -1,6 +1,6 @@
 package com.qianlong.controllers;
 
-import static com.qianlong.constants.SystemConstant.SESSION_LOGIN_NAME;
+import static com.qianlong.biz.constants.SystemConstant.SESSION_LOGIN_NAME;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -45,6 +45,11 @@ public class LoginController {
 	public ModelAndView indexPage() {
 		return new ModelAndView("index");
 		// return new ModelAndView("forward:/WEB-INF/views/index.jsp");
+	}
+	
+	@RequestMapping("/main")
+	public ModelAndView main(){
+		return new ModelAndView("main");
 	}
 
 	@RequestMapping("/register")

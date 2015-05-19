@@ -1,31 +1,36 @@
 package com.qianlong.controllers;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.qianlong.BorrowEntity;
 import com.qianlong.BorrowParamBo;
 import com.qianlong.biz.IBorrowBiz;
+import com.qianlong.biz.IRepayBiz;
 import com.qianlong.biz.IUserBiz;
-import com.qianlong.constants.SystemConstant;
+import com.qianlong.biz.constants.SystemConstant;
+import com.qianlong.biz.util.Amount2String;
 
 /**
  * @author 管黎明
- *
+ * 
  *         All rights reserved.
  */
 @Controller
 public class BorrowController {
 	@Autowired
-	private IBorrowBiz biz;
+	private IBorrowBiz borrowBiz;
+	@Autowired
+	private IRepayBiz repayBiz;
 	@Autowired
 	private IUserBiz userBiz;
 
@@ -34,12 +39,29 @@ public class BorrowController {
 		if (!validateBeforeBorrow(param)) {
 			return new ModelAndView("redirect:/borrowPage");
 		}
-		biz.save(param, userBiz.query((String) session.getAttribute(SystemConstant.SESSION_LOGIN_NAME)).getId());
-		ModelAndView mv = new ModelAndView("borrowSuccessPage");
-		DecimalFormat df = new DecimalFormat("#.00");
-		mv.addObject("monthlyRepay", df.format(calculateMonthlyRepay(param).doubleValue()));
-//		mv.addObject("period", param.getPeriod());
-//		mv.addObject("borrowAmount",param.getBorrowAmount());
+		final long userId = userBiz.query((String) session.getAttribute(SystemConstant.SESSION_LOGIN_NAME)).getId();
+		final List<BorrowEntity> borrowEntityList = borrowBiz.query(userId);
+
+		if (!CollectionUtils.isEmpty(borrowEntityList)) {
+			for (final BorrowEntity borrowEntity : borrowEntityList) {
+				if (borrowEntity.getShouldRepayAll() == null) {
+					continue;
+				}
+				if (StringUtils.equals(borrowEntity.getCompletelyPayOff(), "N")) {
+					final ModelAndView mv = new ModelAndView("main");
+					mv.addObject("msg", "aaaaaa");
+					return mv;
+				}
+			}
+		}
+		if (StringUtils.equals(param.getMode(), SystemConstant.BORROW_MODE_ALL)) {
+			param.setPeriod((byte) 1);
+		}
+		final String monthlyRepay = Amount2String.transfer(repayBiz.calculateMonthlyRepay(param.getBorrowAmount(),
+				param.getPeriod()));
+		borrowBiz.save(param, userId);
+		final ModelAndView mv = new ModelAndView("borrowSuccessPage");
+		mv.addObject("monthlyRepay", monthlyRepay);
 		return mv;
 
 	}
@@ -47,13 +69,6 @@ public class BorrowController {
 	@RequestMapping("/borrowPage")
 	public ModelAndView borrowPage() {
 		return new ModelAndView("borrowPage");
-	}
-
-	private BigDecimal calculateMonthlyRepay(final BorrowParamBo param) {
-		BigDecimal result =new BigDecimal(new BigDecimal(param.getBorrowAmount().multiply(new BigDecimal(SystemConstant.DAILY_RATE)).doubleValue()
-				* param.getPeriod() * 30).add(param.getBorrowAmount()).doubleValue()/param.getPeriod());
-		result.setScale(2,BigDecimal.ROUND_DOWN);
-		return result;
 	}
 
 	private boolean validateBeforeBorrow(final BorrowParamBo param) {

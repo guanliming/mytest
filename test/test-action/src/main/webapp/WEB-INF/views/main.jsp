@@ -10,5 +10,13 @@
 		你好呀，${sessionScope.SESSION_LOGIN_NAME}，欢迎登录！<a href="http://localhost:8080/test-action/signout">注销</a></br>
 		<a href="http://localhost:8080/test-action/borrowPage">我要借款</a>
 		<a href="http://localhost:8080/test-action/givebackPage">我要还款</a>
+<%-- 		<%=request.getAttribute("msg")%> --%>
+		<%if(request.getAttribute("msg")!=null) {
+			%>
+			<script type="text/javascript">
+				alert("有借款没还清，不能借款!");
+			</script>
+		<% }%>
+		</br>
 </body>
 </html>

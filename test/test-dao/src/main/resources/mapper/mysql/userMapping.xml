@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<!-- <typeAliases> -->
+<!-- 		<typeAlias alias="User" type="com.qianlong.UserEntity" /> -->
+<!-- 	</typeAliases> -->
 <mapper namespace="com.qianlong.dao.IUserDao">
+
 	<select id="query" parameterType="java.lang.String" resultType="com.qianlong.UserEntity">
 		select id ,name , password from dawn.user where name =#{name}
 	</select>
-	
+
 	<insert id="insert" parameterType="com.qianlong.UserEntity">
-		insert into dawn.user (name,password)values (#{name},#{password})
+		insert into dawn.user
+		(name,password)values (#{name},#{password})
 	</insert>
 </mapper>

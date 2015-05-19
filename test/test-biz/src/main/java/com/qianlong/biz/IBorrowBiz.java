@@ -1,5 +1,8 @@
 package com.qianlong.biz;
 
+import java.util.List;
+
+import com.qianlong.BorrowEntity;
 import com.qianlong.BorrowParamBo;
 
 /**
@@ -8,5 +11,8 @@ import com.qianlong.BorrowParamBo;
  *         All rights reserved.
  */
 public interface IBorrowBiz {
-	void save(final BorrowParamBo param, long userId);
+	
+	long save(final BorrowParamBo param, final long userId);
+	
+	List<BorrowEntity> query(final long userId); 
 }

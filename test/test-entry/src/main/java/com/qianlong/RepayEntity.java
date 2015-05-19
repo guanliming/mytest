@@ -11,6 +11,7 @@ import lombok.Data;
  */
 @Data
 public class RepayEntity {
+	private BigDecimal actualShouldRepay;
 	private long borrowId;
 	private long id;
 	private byte period;

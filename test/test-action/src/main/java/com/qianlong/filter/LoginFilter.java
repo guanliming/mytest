@@ -1,6 +1,6 @@
 package com.qianlong.filter;
 
-import static com.qianlong.constants.SystemConstant.SESSION_LOGIN_NAME;
+import static com.qianlong.biz.constants.SystemConstant.SESSION_LOGIN_NAME;
 
 import java.io.IOException;
 import java.util.Arrays;
