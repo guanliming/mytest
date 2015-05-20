@@ -43,18 +43,27 @@ public class RepayController {
 			throws Exception {
 		final BorrowEntity borrowEntity = obtainCurrentUserBorrowInfo(session);
 		final byte currentPeriod = currentPeriod(borrowEntity.getBorrowTime(), borrowEntity.getPeriod());
-		// 补充插入到当前期数(只插入不存在的)
 		acomplishForegone(borrowEntity, currentPeriod);
 		final RepayEntity currentRepayEntity = repayDao.queryByBorrowIdAndPeriod(borrowEntity.getId(), currentPeriod);
 		rawRepay(currentRepayEntity, borrowEntity, repayAccount);
 		return new ModelAndView("repaySuccess");
 	}
 
+	@RequestMapping("/repayInfo")
+	public ModelAndView repayInfo(final HttpSession session) throws Exception{
+		final BorrowEntity borrowEntity = obtainCurrentUserBorrowInfo(session);
+		final byte currentPeriod = currentPeriod(borrowEntity.getBorrowTime(), borrowEntity.getPeriod());
+		acomplishForegone(borrowEntity, currentPeriod);
+		final List<RepayEntity> repayList = repayDao.queryByBorrowId(borrowEntity.getId());
+		final ModelAndView mv = new ModelAndView("repayInfoPage");
+		mv.addObject("repayList", repayList);
+		return mv;
+	}
+	
 	@RequestMapping("/repayPage")
 	public ModelAndView repayPage(final HttpSession session) throws Exception {
 		final BorrowEntity borrowEntity = obtainCurrentUserBorrowInfo(session);
 		final byte currentPeriod = currentPeriod(borrowEntity.getBorrowTime(), borrowEntity.getPeriod());
-		// 补充插入到当前期数(只插入不存在的)
 		acomplishForegone(borrowEntity, currentPeriod);
 		final RepayEntity currentRepayEntity = repayDao.queryByBorrowIdAndPeriod(borrowEntity.getId(), currentPeriod);
 		final ModelAndView mv = new ModelAndView("repayPage");
