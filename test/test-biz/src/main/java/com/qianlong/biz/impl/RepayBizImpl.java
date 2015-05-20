@@ -30,18 +30,18 @@ class RepayBizImpl implements IRepayBiz {
 	@Override
 	public byte calculateOverduePeriod(final List<RepayEntity> repayEntityList, final byte currentPeriod,
 			final long borrowId) {
-		outer: for (int i = 1; i < currentPeriod; i++) {
-			for (final RepayEntity repay : repayEntityList) {
-				if (repay.getPeriod() == i) {
-					continue outer;
-				}
-			}
-			return (byte) i;
-		}
 		final RepayEntity repayEntity = repayDao.queryLatestBalance(borrowId);
 		if (repayEntity != null) {
 			return (byte) (repayEntity.getPeriod() + 1);
 		}
+//		outer: for (int i = 1; i < currentPeriod; i++) {
+//			for (final RepayEntity repay : repayEntityList) {
+//				if (repay.getPeriod() == i) {
+//					continue outer;
+//				}
+//			}
+//			return (byte) i;
+//		}
 		return 1;
 	}
 

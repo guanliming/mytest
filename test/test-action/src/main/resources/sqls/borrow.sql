@@ -10,4 +10,4 @@ CREATE TABLE `borrow` (
   `should_repay_all` decimal(10,2) DEFAULT '0.00' COMMENT '应还总金额',
   `completely_pay_off` char(1) DEFAULT 'N' COMMENT '是否还清(''Y'',''N'')',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8

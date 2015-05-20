@@ -13,6 +13,13 @@ import com.qianlong.RepayEntity;
  */
 public interface IRepayBiz {
 
+	/**
+	 * @param borrow 借款信息
+	 * @param repayEntityList 还款信息
+	 * @param toSavePeriod	待保存期限
+	 * @param overduePeriod	逾期期限
+	 * @return
+	 */
 	long save(final BorrowEntity borrow, final List<RepayEntity> repayEntityList, final byte toSavePeriod,
 			final byte overduePeriod) ;
 
