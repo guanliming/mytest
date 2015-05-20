@@ -9,22 +9,25 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qianlong.BorrowEntity;
+import com.qianlong.BorrowInfoBo;
 import com.qianlong.RepayEntity;
 import com.qianlong.biz.IBorrowBiz;
 import com.qianlong.biz.IRepayBiz;
 import com.qianlong.biz.IUserBiz;
 import com.qianlong.biz.constants.SystemConstant;
 import com.qianlong.biz.constants.TimeConstant;
+import com.qianlong.biz.util.Amount2String;
 import com.qianlong.dao.IRepayDao;
 
 /**
  * @author 管黎明
- * 
+ *
  *         All rights reserved.
  */
 @Controller
@@ -50,16 +53,27 @@ public class RepayController {
 	}
 
 	@RequestMapping("/repayInfo")
-	public ModelAndView repayInfo(final HttpSession session) throws Exception{
+	public ModelAndView repayInfo(final HttpSession session) throws Exception {
 		final BorrowEntity borrowEntity = obtainCurrentUserBorrowInfo(session);
 		final byte currentPeriod = currentPeriod(borrowEntity.getBorrowTime(), borrowEntity.getPeriod());
 		acomplishForegone(borrowEntity, currentPeriod);
 		final List<RepayEntity> repayList = repayDao.queryByBorrowId(borrowEntity.getId());
 		final ModelAndView mv = new ModelAndView("repayInfoPage");
 		mv.addObject("repayList", repayList);
+		BorrowInfoBo borrowBo = new BorrowInfoBo();
+		borrowBo.setBorrowAmount(borrowEntity.getBorrowAmount());
+		borrowBo.setMonthlyRepay(Amount2String.transfer(repayBiz.calculateMonthlyRepay(borrowEntity.getBorrowAmount(),
+				borrowEntity.getPeriod())));
+		borrowBo.setOnAccount(borrowEntity.getOnAccount());
+		if (StringUtils.equals(borrowEntity.getBorrowType(), SystemConstant.BORROW_MODE_INSTALMENT)) {
+			borrowBo.setPeriod(borrowEntity.getPeriod());
+			mv.addObject("instalmentBo", borrowBo);
+		} else {
+			mv.addObject("oneOffBo", borrowBo);
+		}
 		return mv;
 	}
-	
+
 	@RequestMapping("/repayPage")
 	public ModelAndView repayPage(final HttpSession session) throws Exception {
 		final BorrowEntity borrowEntity = obtainCurrentUserBorrowInfo(session);
@@ -73,7 +87,7 @@ public class RepayController {
 
 	/**
 	 * 补充当前期数之前的还款信息
-	 * 
+	 *
 	 * @param borrow
 	 *            借款信息
 	 * @param currentPeriod
@@ -109,7 +123,10 @@ public class RepayController {
 				return borrowEntity;
 			}
 		}
-		throw new Exception("无借贷，不用还款!");
+		if(!CollectionUtils.isEmpty(borrowEntityList)){
+			return borrowEntityList.get(0);
+		}
+		throw new Exception("无借贷信息!");
 	}
 
 	private void rawRepay(final RepayEntity currentRepayEntity, final BorrowEntity borrowEntity,
@@ -123,8 +140,7 @@ public class RepayController {
 		}
 		borrowEntity.setCompletelyPayOff("N");
 		if (repayAccount.compareTo(currentRepayEntity.getActualShouldRepay()) >= 0) {
-			borrowEntity.setOnAccount(repayAccount.subtract(
-					currentRepayEntity.getActualShouldRepay()));
+			borrowEntity.setOnAccount(repayAccount.subtract(currentRepayEntity.getActualShouldRepay()));
 			currentRepayEntity.setBalance("Y");
 			currentRepayEntity.setActualShouldRepay(BigDecimal.ZERO);
 			if (currentRepayEntity.getPeriod() >= borrowEntity.getPeriod()) {

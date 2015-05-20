@@ -14,11 +14,40 @@ td {
 </head>
 <body>
 	<div align="center">
+		<%
+			if (request.getAttribute("instalmentBo") != null) {
+		%>
+		<div>
+			<div>借款金额:${instalmentBo.borrowAmount}</div>
+			<div>借款类型:分期还款</div>
+		</div>
+		<div>
+			<div>还款期限:${instalmentBo.period}</div>
+			<div>每期应还:${instalmentBo.monthlyRepay}</div>
+		</div>
+		<div>当前挂账金额:${instalmentBo.onAccount}</div>
+		<%
+			}
+		%>
+		<%
+			if (request.getAttribute("oneOffBo") != null) {
+		%>
+		<div>
+			<div>借款金额:${oneOffBo.borrowAmount}</div>
+			<div>借款类型:一次还本付息</div>
+		</div>
+		<div>
+			<div>当期应还:${oneOffBo.monthlyRepay}</div>
+			<div>当前挂账金额:${oneOffBo.onAccount}</div>
+		</div>
+		<%
+			}
+		%>
 		<table border="1">
 			<tr>
-				<td>期数</td>
+				<td>当期期数</td>
 				<td>当期应还</td>
-				<td>实际偿还</td>
+				<td>当期实际偿还</td>
 				<td>累计总应还款</td>
 			</tr>
 			<c:forEach items="${repayList}" var="item" varStatus="status">
@@ -29,8 +58,8 @@ td {
 					<td>${item.shouldRepayNoOnAccount}</td>
 				</tr>
 			</c:forEach>
-
 		</table>
+		<a href="http://localhost:8080/test-action/main">返回</a>
 	</div>
 </body>
 </html>

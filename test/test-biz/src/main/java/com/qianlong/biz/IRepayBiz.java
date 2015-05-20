@@ -8,7 +8,7 @@ import com.qianlong.RepayEntity;
 
 /**
  * @author 管黎明
- * 
+ *
  *         All rights reserved.
  */
 public interface IRepayBiz {
@@ -29,10 +29,10 @@ public interface IRepayBiz {
 	 * @param toSavePeriod	分期付款总期数
 	 * @return	每月应还款
 	 */
-	BigDecimal calculateMonthlyRepay(final BigDecimal borrowAmount, final byte toSavePeriod);
+	BigDecimal calculateMonthlyRepay(final BigDecimal borrowAmount, final byte period);
 
 	byte calculateOverduePeriod(final List<RepayEntity> repayEntityList, final byte currentPeriod, final long borrowId);
-	
-	
+
+
 	void update(final RepayEntity repay);
 }

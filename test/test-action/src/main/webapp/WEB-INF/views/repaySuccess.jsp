@@ -8,6 +8,6 @@
 </head>
 <body>
 	还款成功!</br>
-	<a href="http://localhost:8080/test-action/repayPage">继续还款</a>
+	<a href="http://localhost:8080/test-action/main">返回</a>
 </body>
 </html>

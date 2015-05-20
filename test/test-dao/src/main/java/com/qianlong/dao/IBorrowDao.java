@@ -19,7 +19,7 @@ import com.qianlong.BorrowEntity;
  */
 @Repository
 public interface IBorrowDao {
-	
+
 	@Insert(
 			"INSERT INTO dawn.borrow "
             +"( "
@@ -42,8 +42,8 @@ public interface IBorrowDao {
 			+"        #{shouldRepayAll}) "
 			)
 	long save(final BorrowEntity toSave);
-	
-	
+
+
 	@Results({@Result(column="borrow_amount",property="borrowAmount"),
 			@Result(column="borrow_time",property="borrowTime"),
 			@Result(column="borrow_type",property="borrowType"),
@@ -53,10 +53,10 @@ public interface IBorrowDao {
 			@Result(column="should_repay_all",property="shouldRepayAll"),
 			@Result(column="completely_pay_off",property="completelyPayOff")
 	})
-	@Select("SELECT * FROM DAWN.BORROW WHERE borrow_user_id=#{userId}")
-	List<BorrowEntity> query(@Param("userId")final long userId); 
-	
-	
+	@Select("SELECT * FROM dawn.borrow WHERE borrow_user_id=#{userId} order by borrow_time desc")
+	List<BorrowEntity> query(@Param("userId")final long userId);
+
+
 	@Update("UPDATE dawn.`borrow` SET on_account = #{onAccount},completely_pay_off=#{completelyPayOff} where id =#{id}")
 	void updateOnAccount(final BorrowEntity borrow);
 }
