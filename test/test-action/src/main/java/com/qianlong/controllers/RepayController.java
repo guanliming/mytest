@@ -112,11 +112,15 @@ public class RepayController {
 			repayBiz.update(currentRepayEntity);
 			return;
 		}
-		if (repayAccount.add(borrowEntity.getOnAccount()).compareTo(currentRepayEntity.getShouldRepayNoOnAccount()) >= 0) {
-			borrowEntity.setOnAccount(repayAccount.add(borrowEntity.getOnAccount()).subtract(
-					currentRepayEntity.getShouldRepayNoOnAccount()));
+		borrowEntity.setCompletelyPayOff("N");
+		if (repayAccount.compareTo(currentRepayEntity.getActualShouldRepay()) >= 0) {
+			borrowEntity.setOnAccount(repayAccount.subtract(
+					currentRepayEntity.getActualShouldRepay()));
 			currentRepayEntity.setBalance("Y");
 			currentRepayEntity.setActualShouldRepay(BigDecimal.ZERO);
+			if (currentRepayEntity.getPeriod() >= borrowEntity.getPeriod()) {
+				borrowEntity.setCompletelyPayOff("Y");
+			}
 		} else {
 			borrowEntity.setOnAccount(borrowEntity.getOnAccount().add(repayAccount));
 			currentRepayEntity.setActualShouldRepay(currentRepayEntity.getShouldRepayNoOnAccount().subtract(
@@ -125,6 +129,7 @@ public class RepayController {
 		currentRepayEntity.setRepay(currentRepayEntity.getRepay().add(repayAccount));
 		borrowBiz.updateOnAccount(borrowEntity);
 		repayBiz.update(currentRepayEntity);
+
 	}
 
 }

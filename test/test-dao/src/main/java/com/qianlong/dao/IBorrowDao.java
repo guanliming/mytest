@@ -57,6 +57,6 @@ public interface IBorrowDao {
 	List<BorrowEntity> query(@Param("userId")final long userId); 
 	
 	
-	@Update("UPDATE dawn.`borrow` SET on_account = #{onAccount} where id =#{id}")
+	@Update("UPDATE dawn.`borrow` SET on_account = #{onAccount},completely_pay_off=#{completelyPayOff} where id =#{id}")
 	void updateOnAccount(final BorrowEntity borrow);
 }
