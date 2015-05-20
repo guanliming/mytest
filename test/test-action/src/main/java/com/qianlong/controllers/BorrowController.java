@@ -44,9 +44,9 @@ public class BorrowController {
 
 		if (!CollectionUtils.isEmpty(borrowEntityList)) {
 			for (final BorrowEntity borrowEntity : borrowEntityList) {
-				if (borrowEntity.getShouldRepayAll() == null) {
-					continue;
-				}
+//				if (borrowEntity.getShouldRepayAll() == null) {
+//					continue;
+//				}
 				if (StringUtils.equals(borrowEntity.getCompletelyPayOff(), "N")) {
 					final ModelAndView mv = new ModelAndView("main");
 					mv.addObject("msg", "aaaaaa");

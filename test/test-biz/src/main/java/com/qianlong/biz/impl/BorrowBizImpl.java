@@ -1,5 +1,6 @@
 package com.qianlong.biz.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,13 @@ import com.qianlong.dao.IBorrowDao;
 		borrow.setBorrowType(param.getMode());
 		borrow.setBorrowUserId(userId);
 		borrow.setPeriod(param.getPeriod());
+		borrow.setOnAccount(BigDecimal.ZERO);
 		return dao.save(borrow);
+	}
+
+	@Override
+	public void updateOnAccount(final BorrowEntity borrow) {
+		dao.updateOnAccount(borrow);
 	}
 
 }

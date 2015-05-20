@@ -15,4 +15,6 @@ public interface IBorrowBiz {
 	long save(final BorrowParamBo param, final long userId);
 	
 	List<BorrowEntity> query(final long userId); 
+	
+	void updateOnAccount(final BorrowEntity borrow);
 }

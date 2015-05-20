@@ -24,5 +24,8 @@ public interface IRepayBiz {
 	 */
 	BigDecimal calculateMonthlyRepay(final BigDecimal borrowAmount, final byte toSavePeriod);
 
-	byte calculateOverduePeriod(final List<RepayEntity> repayEntityList, final byte currentPeriod);
+	byte calculateOverduePeriod(final List<RepayEntity> repayEntityList, final byte currentPeriod, final long borrowId);
+	
+	
+	void update(final RepayEntity repay);
 }

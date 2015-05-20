@@ -1,5 +1,6 @@
 package com.qianlong.controllers;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qianlong.BorrowEntity;
@@ -37,35 +39,47 @@ public class RepayController {
 	private IUserBiz userBiz;
 
 	@RequestMapping("/repay")
-	public ModelAndView repay(final HttpSession session) throws Exception {
+	public ModelAndView repay(final HttpSession session, @RequestParam("repayAccount") final BigDecimal repayAccount)
+			throws Exception {
 		final BorrowEntity borrowEntity = obtainCurrentUserBorrowInfo(session);
-		
-		
-		final byte currentPeriod =currentPeriod(borrowEntity.getBorrowTime(), borrowEntity.getPeriod());
-		final RepayEntity currentRepayEntity =repayDao.queryByBorrowIdAndPeriod(borrowEntity.getId(),
-				currentPeriod);
-		if(currentRepayEntity==null){
-//			RepayEntity
-		}
-		
-		return new ModelAndView();
+		final byte currentPeriod = currentPeriod(borrowEntity.getBorrowTime(), borrowEntity.getPeriod());
+		// 补充插入到当前期数(只插入不存在的)
+		acomplishForegone(borrowEntity, currentPeriod);
+		final RepayEntity currentRepayEntity = repayDao.queryByBorrowIdAndPeriod(borrowEntity.getId(), currentPeriod);
+		rawRepay(currentRepayEntity, borrowEntity, repayAccount);
+		return new ModelAndView("repaySuccess");
 	}
 
 	@RequestMapping("/repayPage")
-	public ModelAndView repayPage() {
-		return new ModelAndView("repayPage");
+	public ModelAndView repayPage(final HttpSession session) throws Exception {
+		final BorrowEntity borrowEntity = obtainCurrentUserBorrowInfo(session);
+		final byte currentPeriod = currentPeriod(borrowEntity.getBorrowTime(), borrowEntity.getPeriod());
+		// 补充插入到当前期数(只插入不存在的)
+		acomplishForegone(borrowEntity, currentPeriod);
+		final RepayEntity currentRepayEntity = repayDao.queryByBorrowIdAndPeriod(borrowEntity.getId(), currentPeriod);
+		final ModelAndView mv = new ModelAndView("repayPage");
+		mv.addObject("actualShouldRepay", currentRepayEntity.getActualShouldRepay());
+		return mv;
 	}
 
+	/**
+	 * 补充当前期数之前的还款信息
+	 * 
+	 * @param borrow
+	 *            借款信息
+	 * @param currentPeriod
+	 *            当前期数
+	 */
 	private void acomplishForegone(final BorrowEntity borrow, final byte currentPeriod) {
 		final List<RepayEntity> repayEntityList = repayDao.queryByBorrowId(borrow.getId());
-		final byte overduePeriod =repayBiz.calculateOverduePeriod(repayEntityList, currentPeriod);
-		outer: for (byte i = 1; i < currentPeriod; i++) {
+		final byte overduePeriod = repayBiz.calculateOverduePeriod(repayEntityList, currentPeriod, borrow.getId());
+		outer: for (byte i = 1; i <= currentPeriod; i++) {
 			for (final RepayEntity repay : repayEntityList) {
 				if (repay.getPeriod() == i) {
 					continue outer;
 				}
 			}
-			repayBiz.save(borrow,repayEntityList,i, overduePeriod);
+			repayBiz.save(borrow, repayEntityList, i, overduePeriod);
 		}
 	}
 
@@ -74,7 +88,7 @@ public class RepayController {
 		if (borrowUpToNow <= 0) {
 			return 1;
 		} else {
-			return (byte) (borrowUpToNow / TimeConstant.DAY_TO_TIMEMILLS + 1);
+			return (byte) (borrowUpToNow / TimeConstant.PER_PERIOD_TO_TIMEMILLS + 1);
 		}
 	}
 
@@ -87,6 +101,30 @@ public class RepayController {
 			}
 		}
 		throw new Exception("无借贷，不用还款!");
+	}
+
+	private void rawRepay(final RepayEntity currentRepayEntity, final BorrowEntity borrowEntity,
+			final BigDecimal repayAccount) {
+		if (StringUtils.equals(currentRepayEntity.getBalance(), "Y")) {
+			currentRepayEntity.setRepay(currentRepayEntity.getRepay().add(repayAccount));
+			borrowEntity.setOnAccount(borrowEntity.getOnAccount().add(repayAccount));
+			borrowBiz.updateOnAccount(borrowEntity);
+			repayBiz.update(currentRepayEntity);
+			return;
+		}
+		if (repayAccount.add(borrowEntity.getOnAccount()).compareTo(currentRepayEntity.getShouldRepayNoOnAccount()) >= 0) {
+			borrowEntity.setOnAccount(repayAccount.add(borrowEntity.getOnAccount()).subtract(
+					currentRepayEntity.getShouldRepayNoOnAccount()));
+			currentRepayEntity.setBalance("Y");
+			currentRepayEntity.setActualShouldRepay(BigDecimal.ZERO);
+		} else {
+			borrowEntity.setOnAccount(borrowEntity.getOnAccount().add(repayAccount));
+			currentRepayEntity.setActualShouldRepay(currentRepayEntity.getShouldRepayNoOnAccount().subtract(
+					borrowEntity.getOnAccount()));
+		}
+		currentRepayEntity.setRepay(currentRepayEntity.getRepay().add(repayAccount));
+		borrowBiz.updateOnAccount(borrowEntity);
+		repayBiz.update(currentRepayEntity);
 	}
 
 }

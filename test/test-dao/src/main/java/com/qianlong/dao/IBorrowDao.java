@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.qianlong.BorrowEntity;
@@ -54,4 +55,8 @@ public interface IBorrowDao {
 	})
 	@Select("SELECT * FROM DAWN.BORROW WHERE borrow_user_id=#{userId}")
 	List<BorrowEntity> query(@Param("userId")final long userId); 
+	
+	
+	@Update("UPDATE dawn.`borrow` SET on_account = #{onAccount} where id =#{id}")
+	void updateOnAccount(final BorrowEntity borrow);
 }
