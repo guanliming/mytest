@@ -53,7 +53,7 @@ public interface IBorrowDao {
 			@Result(column="should_repay_all",property="shouldRepayAll"),
 			@Result(column="completely_pay_off",property="completelyPayOff")
 	})
-	@Select("SELECT * FROM dawn.borrow WHERE borrow_user_id=#{userId} order by borrow_time desc")
+	@Select("SELECT * FROM dawn.borrow WHERE borrow_user_id=#{userId} order by borrow_time desc,id desc")
 	List<BorrowEntity> query(@Param("userId")final long userId);
 
 
