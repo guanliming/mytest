@@ -1,12 +1,13 @@
 package com.qianlong.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import lombok.Data;
 import lombok.Getter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -29,9 +30,8 @@ public class HttpTestController {
 		}
 	}
 
-	@RequestMapping(value = "a1", method = { RequestMethod.POST, RequestMethod.GET })
-	@ResponseBody
-	public String a1( final TransferParams params) {
+	@RequestMapping(value = "a1", method = { RequestMethod.POST, RequestMethod.GET },consumes = "application/json")
+	public String a1( final HttpServletRequest request,final TransferParams params) {
 //		return new MyResponse("OK","fejaijfi");
 		return JSONObject.toJSONString(new MyResponse("OK","fejaijfi"));
 	}
