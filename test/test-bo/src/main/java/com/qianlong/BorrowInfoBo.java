@@ -15,4 +15,5 @@ public class BorrowInfoBo {
 	private BigDecimal onAccount;
 
 	private byte period;
+	
 }

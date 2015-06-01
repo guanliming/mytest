@@ -34,7 +34,7 @@ public class BorrowController {
 	@Autowired
 	private IUserBiz userBiz;
 
-	@RequestMapping("/borrow")
+	@RequestMapping("borrow")
 	public ModelAndView borrow(@ModelAttribute final BorrowParamBo param, final HttpSession session) {
 		if (!validateBeforeBorrow(param)) {
 			return new ModelAndView("redirect:/borrowPage");

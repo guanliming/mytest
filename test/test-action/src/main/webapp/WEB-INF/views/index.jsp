@@ -10,6 +10,5 @@
 		<a href="http://localhost:8080/test-action/registerPage">Sign up</a>
 		<a href="http://localhost:8080/test-action/signinPage">Sign in</a>
 	</div>
-	
 </body>
 </html>

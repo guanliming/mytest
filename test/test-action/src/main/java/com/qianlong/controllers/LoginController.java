@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,7 +52,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/register")
-	public ModelAndView register(@ModelAttribute final RegisterParamBo param, final HttpSession session) {
+	public ModelAndView register( final RegisterParamBo param, final HttpSession session) {
 		if(!validateBeforeRegister(param)){
 			return indexPage();
 		}

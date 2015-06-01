@@ -16,7 +16,42 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<aop:aspectj-autoproxy />
 	<context:component-scan base-package="com.qianlong" />
 
-	<import resource="spring-mybatis.xml"/>
+	<import resource="spring-mybatis.xml" />
 
-	
+	<!-- 任务 -->
+	<bean id="jobtask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="myJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>executeJob</value>
+		</property>
+	</bean>
+
+	<!-- 触发器 -->
+	<bean id="doTime"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="jobtask" />
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0 6,7,8 * * * ?</value>
+		</property>
+	</bean>
+
+
+	<!-- 定时管理器 -->
+	<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+<!-- 				<ref bean="doTime" /> -->
+			</list>
+		</property>
+	</bean>
+
 </beans>

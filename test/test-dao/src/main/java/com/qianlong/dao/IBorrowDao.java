@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
@@ -41,9 +42,13 @@ public interface IBorrowDao {
 			+"        #{repayAll}, "
 			+"        #{shouldRepayAll}) "
 			)
+//	select LAST_INSERT_ID() as id
+	@SelectKey(keyProperty="id",keyColumn="id",resultType=Integer.class,statement={"SELECT @@IDENTITY "},before=false)
 	long save(final BorrowEntity toSave);
 
 
+	
+	
 	@Results({@Result(column="borrow_amount",property="borrowAmount"),
 			@Result(column="borrow_time",property="borrowTime"),
 			@Result(column="borrow_type",property="borrowType"),
@@ -55,6 +60,9 @@ public interface IBorrowDao {
 	})
 	@Select("SELECT * FROM dawn.borrow WHERE borrow_user_id=#{userId} order by borrow_time desc,id desc")
 	List<BorrowEntity> query(@Param("userId")final long userId);
+	
+	@Select("SELECT * FROM dawn.borrow WHERE id=#{id} ")
+	List<BorrowEntity> queryById(@Param("id")final long id);
 
 
 	@Update("UPDATE dawn.`borrow` SET on_account = #{onAccount},completely_pay_off=#{completelyPayOff} where id =#{id}")
