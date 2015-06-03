@@ -41,6 +41,7 @@
 		<dependency>
 			<groupId>com.qianlong</groupId>
 			<artifactId>test-biz</artifactId>
+			<scope>compile</scope>
 			<version>${finance.project.version}</version>
 		</dependency>
 

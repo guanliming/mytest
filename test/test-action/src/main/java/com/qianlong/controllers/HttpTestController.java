@@ -1,15 +1,19 @@
 package com.qianlong.controllers;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import lombok.Data;
 import lombok.Getter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.qianlong.BorrowEntity;
+import com.qianlong.biz.IBorrowBiz;
 
 /**
  * @author 管黎明
@@ -29,12 +33,20 @@ public class HttpTestController {
 			this.data = data;
 		}
 	}
+	@Autowired
+	private IBorrowBiz borrowBiz;
 
-	@RequestMapping(value = "a1", method = { RequestMethod.POST, RequestMethod.GET },consumes = "application/json")
-	public String a1( final HttpServletRequest request,final TransferParams params) {
-//		return new MyResponse("OK","fejaijfi");
-		return JSONObject.toJSONString(new MyResponse("OK","fejaijfi"));
+	@RequestMapping(value = "/a1", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String a1(final TransferParams params) {
+		final List<BorrowEntity> entity = borrowBiz.query(10);
+		return JSONObject.toJSONString(new MyResponse("OK", "fejaijfi"));
 	}
+
+	// @ModelAttribute
+	// public void a2(final Model m,final TransferParams params){
+	// m.addAttribute(params);
+	// }
 
 }
 

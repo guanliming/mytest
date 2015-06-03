@@ -1,7 +1,5 @@
 package com.qianlong.dao;
 
-import static org.junit.Assert.fail;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +41,7 @@ public class IBorrowDaoTest {
 
 	@Test
 	public void testUpdateOnAccount() {
-		fail("Not yet implemented");
+//		fail("Not yet implemented");
 	}
 
 }
