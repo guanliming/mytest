@@ -47,9 +47,19 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
+		<!-- <url-pattern>/*</url-pattern> -->
 		<servlet-name>spring</servlet-name>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.qianlong.filter.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<!-- <url-pattern>/*</url-pattern> -->
+		<servlet-name>spring</servlet-name>
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>spring</servlet-name>

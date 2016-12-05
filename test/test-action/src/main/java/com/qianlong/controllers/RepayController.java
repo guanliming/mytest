@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qianlong.BorrowEntity;
@@ -50,6 +51,13 @@ public class RepayController {
 		final RepayEntity currentRepayEntity = repayDao.queryByBorrowIdAndPeriod(borrowEntity.getId(), currentPeriod);
 		rawRepay(currentRepayEntity, borrowEntity, repayAccount);
 		return new ModelAndView("repaySuccess");
+	}
+	
+	@RequestMapping("/test")
+	@ResponseBody
+	public String repay2()
+			throws Exception {
+		return "哈哈2";
 	}
 
 	@RequestMapping("/repayInfo")
