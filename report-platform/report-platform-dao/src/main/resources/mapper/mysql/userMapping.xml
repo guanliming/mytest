@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<!-- <typeAliases> -->
+<!-- <typeAlias alias="User" type="com.shadow.UserEntity" /> -->
+<!-- </typeAliases> -->
+<mapper namespace="com.shadow.dao.IUserDao">
+
+	<select id="query" parameterType="java.lang.String" resultType="com.shadow.UserEntity">
+		select id ,name , password from dawn.user where name =#{name}
+	</select>
+
+	<insert id="insert" parameterType="com.shadow.UserEntity">
+		insert into dawn.user
+		(name,password)values (#{name},#{password})
+	</insert>
+</mapper>
