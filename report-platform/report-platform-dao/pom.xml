@@ -12,13 +12,11 @@
 		<dependency>
 			<groupId>com.shadow.report</groupId>
 			<artifactId>report-platform-condition</artifactId>
-			<version>${finance.project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.shadow.report</groupId>
 			<artifactId>report-platform-entity</artifactId>
-			<version>${finance.project.version}</version>
 		</dependency>
 
 		<dependency>

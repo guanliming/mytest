@@ -16,6 +16,20 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<aop:aspectj-autoproxy />
 	<context:component-scan base-package="com.shadow" />
 
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config.properties</value>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="systemVariable" class="com.shadow.biz.component.SystemVariable">
+		<property name="baseDir" value="${base_dir}"  />
+	</bean>
+
 	<import resource="spring-mybatis.xml" />
 
 	<!-- 任务 -->
@@ -49,7 +63,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-<!-- 				<ref bean="doTime" /> -->
+				<!-- <ref bean="doTime" /> -->
 			</list>
 		</property>
 	</bean>

@@ -8,29 +8,27 @@
 	</parent>
 	<artifactId>report-platform-biz</artifactId>
 
+	<properties>
+		<base.dir>F:/央行/个人报文预处理子系统（加密加压）/报文预处理子系统（加密加压）/lib</base.dir>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.shadow.report</groupId>
 			<artifactId>report-platform-dao</artifactId>
-			<version>${finance.project.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.shadow.report</groupId>
 			<artifactId>report-platform-bo</artifactId>
-			<version>${finance.project.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -41,6 +39,120 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>com.thirdparty.ApacheConfiguration</groupId>
+			<artifactId>ApacheConfiguration</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/ApacheConfiguration.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.batch-prepare</groupId>
+			<artifactId>batch-prepare</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/batch-prepare.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.bcprov-jdk14-123</groupId>
+			<artifactId>bcprov-jdk14-123</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/bcprov-jdk14-123.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/commons-collections-3.0.jar</systemPath>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.thirdparty.commons-lang</groupId> -->
+<!-- 			<artifactId>commons-lang</artifactId> -->
+<!-- 			<version>2.0</version> -->
+<!-- 			<scope>system</scope> -->
+<!-- 			<systemPath>${base.dir}/commons-lang-2.0.jar</systemPath> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.thirdparty.dispatchproxy</groupId>
+			<artifactId>dispatchproxy</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/dispatchproxy.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.dom4j-full</groupId>
+			<artifactId>dom4j-full</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/dom4j-full.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.foundation</groupId>
+			<artifactId>foundation-full</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/foundation.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.jdmkrt</groupId>
+			<artifactId>jdmkrt</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/jdmkrt.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/jdom.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.jmx</groupId>
+			<artifactId>jmx</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/jmx.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.log4j-1.2.8</groupId>
+			<artifactId>log4j-1.2.8</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/log4j-1.2.8.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.sysmgt</groupId>
+			<artifactId>sysmgt</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/sysmgt.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.xerces</groupId>
+			<artifactId>xerces</artifactId>
+			<version>2.4</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/xerces-2.4.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.xmlParserAPIs</groupId>
+			<artifactId>xmlParserAPIs</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/xmlParserAPIs.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.thirdparty.XPLookAndFeel</groupId>
+			<artifactId>XPLookAndFeel</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${base.dir}/XPLookAndFeel.jar</systemPath>
+		</dependency>
+
 
 
 	</dependencies>

@@ -42,7 +42,6 @@
 			<groupId>com.shadow.report</groupId>
 			<artifactId>report-platform-biz</artifactId>
 			<scope>compile</scope>
-			<version>${finance.project.version}</version>
 		</dependency>
 
 		<!-- jsp servlet -->
