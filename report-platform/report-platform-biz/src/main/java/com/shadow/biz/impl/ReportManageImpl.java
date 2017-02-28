@@ -3,7 +3,8 @@ package com.shadow.biz.impl;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -93,7 +94,6 @@ public class ReportManageImpl implements IReportManage {
 	private boolean validateReport(File file) {
 		try {
 			PreConditionCheck preCheck = new PreConditionCheck(PROJECTHOME);
-
 			ReportCheckUtils.checkFileName(file);
 			ReportCheckUtils.checkHead(file, preCheck);
 			ReportCheckUtils.checkBody(file, preCheck);
@@ -119,7 +119,7 @@ public class ReportManageImpl implements IReportManage {
 	private List<String> readRecords(File file) {
 		List<String> records = new ArrayList<String>();
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"gbk"));
 			try {
 				int i = 0;
 				String line = null;

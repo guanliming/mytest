@@ -103,11 +103,11 @@ public class ReportCheckUtils {
 
 	public static void checkRecords(List<String> records, PreConditionCheck preCheck) throws Exception {
 		if (!CollectionUtils.isEmpty(records)) {
-			ArrayList<byte[]> toCheckRecords = new ArrayList<byte[]>();
+			ArrayList<byte[]> list = new ArrayList<byte[]>();
 			for (int i = 0; i < records.size(); i++) {
-				toCheckRecords.add(records.get(i).getBytes());
+				list.add(records.get(i).getBytes("gbk"));
 			}
-			List<String> result = preCheck.checkrecord(toCheckRecords);
+			List<String> result = preCheck.checkrecord(list);
 			for (int i = 0; i < result.size(); i++) {
 				System.out.println("checkrecordpack=" + i + ":" + result.get(i));
 			}

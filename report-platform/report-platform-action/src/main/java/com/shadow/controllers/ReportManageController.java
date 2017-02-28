@@ -21,9 +21,13 @@ public class ReportManageController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 对输入目录下的所有文件进行加密
+	 * targetFile存在则只对targetFile加密 targetFile为空
+	 * targetDir不为空，则对targetDir输入目录下的所有文件进行加密
 	 * 
 	 * @param targetDir
+	 *            目标目录 绝对路径
+	 * @param targetFile
+	 *            目标文件 绝对路径
 	 * @return
 	 */
 	@ResponseBody
@@ -42,9 +46,13 @@ public class ReportManageController {
 	}
 
 	/**
-	 * 对输入目录下的所有文件进行加密
+	 * targetFile存在则只对targetFile解密并解压 targetFile为空
+	 * targetDir不为空，则对targetDir输入目录下的所有文件进行解密并解压
 	 * 
 	 * @param targetDir
+	 *            目标目录 绝对路径
+	 * @param targetFile
+	 *            目标文件 绝对路径
 	 * @return
 	 */
 	@ResponseBody
