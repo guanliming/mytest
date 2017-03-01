@@ -101,7 +101,8 @@ public class ReportCheckUtils {
 		preCheck.checkbody();
 	}
 
-	public static void checkRecords(List<String> records, PreConditionCheck preCheck) throws Exception {
+	public static void checkRecords(List<String> content, PreConditionCheck preCheck) throws Exception {
+		List<String> records = getRecords(content);
 		if (!CollectionUtils.isEmpty(records)) {
 			ArrayList<byte[]> list = new ArrayList<byte[]>();
 			for (int i = 0; i < records.size(); i++) {
@@ -109,11 +110,21 @@ public class ReportCheckUtils {
 			}
 			List<String> result = preCheck.checkrecord(list);
 			for (int i = 0; i < result.size(); i++) {
-				System.out.println("checkrecordpack=" + i + ":" + result.get(i));
+				logger.info("checkrecordpack=" + i + ":" + result.get(i));
 			}
 		} else {
 			// empty record
 		}
+	}
+
+	private static List<String> getRecords(List<String> content) {
+		List<String> records = new ArrayList<String>();
+		for (int i = 0; i < content.size(); i++) {
+			if (i > 1) {
+				records.add(content.get(i));
+			}
+		}
+		return records;
 	}
 
 	public static void compressFile(File f, PreConditionCheck preCheck, String baseDir) {
@@ -137,7 +148,6 @@ public class ReportCheckUtils {
 			throw new ReportBaseException(succFile + "加密失败");
 		}
 	}
-
 
 	/**
 	 * @param f

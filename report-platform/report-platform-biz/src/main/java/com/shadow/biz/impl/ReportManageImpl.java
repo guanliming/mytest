@@ -1,11 +1,7 @@
 package com.shadow.biz.impl;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -97,8 +93,8 @@ public class ReportManageImpl implements IReportManage {
 			ReportCheckUtils.checkFileName(file);
 			ReportCheckUtils.checkHead(file, preCheck);
 			ReportCheckUtils.checkBody(file, preCheck);
-			List<String> records = readRecords(file);
-			ReportCheckUtils.checkRecords(records, preCheck);
+			List<String> content = FileUtils.readContent(file);
+			ReportCheckUtils.checkRecords(content, preCheck);
 			ReportCheckUtils.compressFile(file, preCheck, systemVariable.getBaseDir());
 			logger.info("ReportManageImpl#validateReport,success:{}", file.getAbsolutePath());
 			return true;
@@ -116,34 +112,7 @@ public class ReportManageImpl implements IReportManage {
 		}
 	}
 
-	private List<String> readRecords(File file) {
-		List<String> records = new ArrayList<String>();
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"gbk"));
-			try {
-				int i = 0;
-				String line = null;
-				while ((line = reader.readLine()) != null) {
-					if (i > 1) {
-						records.add(line);
-					}
-					i++;
-				}
-				return records;
-			} catch (Exception e) {
-				logger.error("读取文件记录失败,e:{}", e);
-				try {
-					reader.close();
-				} catch (Exception e2) {
-					logger.error("关闭BufferedReader失败,e:{}", e2);
-				}
-				throw e;
-			}
-		} catch (Exception e) {
-			logger.error("创建FileReader失败");
-			throw new ReportBaseException("创建FileReader失败", e);
-		}
-	}
+	
 
 	@Override
 	public String decryptAndDecompress(String targetDir, String targetFile) {
