@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.qianlong.BorrowInfoBo;
 import com.shadow.BorrowEntity;
+import com.shadow.BorrowInfoBo;
 import com.shadow.RepayEntity;
 import com.shadow.biz.IBorrowBiz;
 import com.shadow.biz.IRepayBiz;

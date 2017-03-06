@@ -15,6 +15,6 @@
 	<% if(request.getParameter("mode")!=null && StringUtils.equals(request.getParameter("mode").toString(), "00")){ %>
 	您选择在当期全额偿还,偿还金额为${monthlyRepay}!
 	<%} %>
-	<a href="http://localhost:8080/test-action/main">返回</a>
+	<a href="http://localhost:8080/report-platform-action/main">返回</a>
 </body>
 </html>

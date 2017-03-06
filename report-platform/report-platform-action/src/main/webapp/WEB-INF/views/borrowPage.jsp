@@ -31,7 +31,7 @@
 </head>
 <body>
 	<div align="center">
-		<form id="borrowForm" action="http://localhost:8080/test-action/borrow" method="post">
+		<form id="borrowForm" action="http://localhost:8080/report-platform-action/borrow" method="post">
 			<table>
 				<tr>
 					<td>借款金额:</td>

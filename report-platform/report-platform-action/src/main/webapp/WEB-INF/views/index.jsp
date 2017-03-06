@@ -7,8 +7,8 @@
 </head>
 <body>
 	<div id="header">
-		<a href="http://localhost:8080/test-action/registerPage">Sign up</a>
-		<a href="http://localhost:8080/test-action/signinPage">Sign in</a>
+		<a href="http://localhost:8080/report-platform-action/registerPage">Sign up</a>
+		<a href="http://localhost:8080/report-platform-action/signinPage">Sign in</a>
 	</div>
 </body>
 </html>

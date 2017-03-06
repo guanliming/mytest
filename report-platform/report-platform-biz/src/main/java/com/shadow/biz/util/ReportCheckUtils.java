@@ -101,6 +101,13 @@ public class ReportCheckUtils {
 		preCheck.checkbody();
 	}
 
+	/**
+	 * 检查记录
+	 * 
+	 * @param content
+	 * @param preCheck
+	 * @throws Exception
+	 */
 	public static void checkRecords(List<String> content, PreConditionCheck preCheck) throws Exception {
 		List<String> records = getRecords(content);
 		if (!CollectionUtils.isEmpty(records)) {
@@ -127,6 +134,13 @@ public class ReportCheckUtils {
 		return records;
 	}
 
+	/**
+	 * 压缩加密文件
+	 * 
+	 * @param f
+	 * @param preCheck
+	 * @param baseDir
+	 */
 	public static void compressFile(File f, PreConditionCheck preCheck, String baseDir) {
 		String successDir = FileUtils.mkdirIfNotExist(baseDir, "success_encrypt_file");
 		String failDir = FileUtils.mkdirIfNotExist(baseDir, "fail_file");
@@ -151,7 +165,7 @@ public class ReportCheckUtils {
 
 	/**
 	 * @param f
-	 *            解密文件
+	 *            解密解压文件
 	 * @param preCheck
 	 * @param baseDir
 	 *            基目录

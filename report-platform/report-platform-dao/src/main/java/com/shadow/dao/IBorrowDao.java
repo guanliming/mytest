@@ -22,7 +22,7 @@ import com.shadow.BorrowEntity;
 public interface IBorrowDao {
 
 	@Insert(
-			"INSERT INTO dawn.borrow "
+			"INSERT INTO borrow "
             +"( "
             +" borrow_amount, "
             +" borrow_type, "
@@ -58,13 +58,13 @@ public interface IBorrowDao {
 			@Result(column="should_repay_all",property="shouldRepayAll"),
 			@Result(column="completely_pay_off",property="completelyPayOff")
 	})
-	@Select("SELECT * FROM dawn.borrow WHERE borrow_user_id=#{userId} order by borrow_time desc,id desc")
+	@Select("SELECT * FROM borrow WHERE borrow_user_id=#{userId} order by borrow_time desc,id desc")
 	List<BorrowEntity> query(@Param("userId")final long userId);
 	
-	@Select("SELECT * FROM dawn.borrow WHERE id=#{id} ")
+	@Select("SELECT * FROM borrow WHERE id=#{id} ")
 	List<BorrowEntity> queryById(@Param("id")final long id);
 
 
-	@Update("UPDATE dawn.`borrow` SET on_account = #{onAccount},completely_pay_off=#{completelyPayOff} where id =#{id}")
+	@Update("UPDATE `borrow` SET on_account = #{onAccount},completely_pay_off=#{completelyPayOff} where id =#{id}")
 	void updateOnAccount(final BorrowEntity borrow);
 }

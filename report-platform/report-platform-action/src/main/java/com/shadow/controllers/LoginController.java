@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.qianlong.RegisterParamBo;
+import com.shadow.RegisterParamBo;
 import com.shadow.UserEntity;
 import com.shadow.biz.IUserBiz;
 

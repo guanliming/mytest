@@ -33,7 +33,7 @@
 		}
 		var a = document.getElementById("usernameTxInput").value;
 		// get
-		xmlHttp.open("GET", "/test-action/account.validate?account=" + a, true);
+		xmlHttp.open("GET", "/report-platform-action/account.validate?account=" + a, true);
 		xmlHttp.send();
 	}
 
@@ -62,7 +62,7 @@
 </head>
 <body>
 	<div align="center">
-		<form id="registerForm" action="http://localhost:8080/test-action/register"
+		<form id="registerForm" action="http://localhost:8080/report-platform-action/register"
 			method="post" >
 			<table border="0">
 				<tr>

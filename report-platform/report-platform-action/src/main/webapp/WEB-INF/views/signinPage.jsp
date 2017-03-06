@@ -23,7 +23,7 @@
 </head>
 <body>
 <div align="center">
-		<form id="signinForm" action="http://localhost:8080/test-action/signin"
+		<form id="signinForm" action="http://localhost:8080/report-platform-action/signin"
 			method="post" >
 			<table border="0">
 				<tr>

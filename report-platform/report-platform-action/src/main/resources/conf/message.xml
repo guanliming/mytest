@@ -7,9 +7,9 @@
             <rec tasktype="4" msgverpos="0" msgverlength="3"/>
         </msg_mapping>
         <!--trimoption 1：不去空格 2：去前后半角 3：去前后全角半角 4：去所有全角半角-->
-        <message tasktype="4" version="1.1" headerLength="147" readerVersion="1.1" charset="GB18030">
+        <message tasktype="4" version="1.1" headerLength="147" readerVersion="1.3" charset="GB18030">
             <segment name="Head" segmentLength="147" opitional="false" unique="true">
-                <field name="Version" type="AN" trimoption="3" startPosition="0" endPosition="2" opitional="false"/>
+                <field name="Version" type="AN" trimoption="3" startPosition="0" endPosition="3" opitional="false"/>
                 <field name="FinianceCode" type="AN" trimoption="3" startPosition="3" endPosition="16" opitional="false"/>
                 <field name="CreatedTime" type="N" trimoption="3" startPosition="17" endPosition="30" opitional="false"/>
                 <field name="ProgramVersion" type="AN" trimoption="3" startPosition="31" endPosition="33" opitional="false"/>
@@ -127,8 +127,6 @@
 					    errorMsg="基础段[证件类型]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "5107013"/>
 					<rule name="rule-type" checkType="FC" checkedFieldName="CertNo" reverseCheck="true"
 					    errorMsg="基础段[证件号码]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "5109013"/>
-					<!--rule name="rule-type" checkType="FC" checkedFieldName="ReservedA" reverseCheck="true"
-					    errorMsg="基础段[预留字段]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "8107013"/-->
 		
 					<rule name="rule2-3-1" checkType="FC" checkedFieldName="Area" errorMsg="基础段[发生地点]数据项类型为N的数据项，每一位必须是0～9的数字，对于无法填报的可选型数据项要用半角空格填充" errorCode="3141012" reverseCheck="true"/>
 					<rule name="rule2-3-2" checkType="FC" checkedFieldName="DataOpened" errorMsg="基础段[开户日期]数据项类型为N的数据项，每一位必须是0～9的数字，对于无法填报的可选型数据项要用半角空格填充" errorCode="2101012" reverseCheck="true"/>
@@ -615,7 +613,7 @@
                 </rule>                
             </checkrules>
         </message>
-        <message tasktype="4" version="1.2" headerLength="147" readerVersion="1.1" charset="GB18030">
+        <message tasktype="4" version="1.2" headerLength="147" readerVersion="1.3" charset="GB18030">
             <segment name="Head" segmentLength="147" opitional="false" unique="true">
                 <field name="Version" type="AN" trimoption="3" startPosition="0" endPosition="2" opitional="false"/>
                 <field name="FinianceCode" type="AN" trimoption="3" startPosition="3" endPosition="16" opitional="false"/>
@@ -735,8 +733,6 @@
 					    errorMsg="基础段[证件类型]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "5107013"/>
 					<rule name="rule-type" checkType="FC" checkedFieldName="CertNo" reverseCheck="true"
 					    errorMsg="基础段[证件号码]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "5109013"/>
-					<!--rule name="rule-type" checkType="FC" checkedFieldName="ReservedA" reverseCheck="true"
-					    errorMsg="基础段[预留字段]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "8107013"/-->
 		
 					<rule name="rule2-3-1" checkType="FC" checkedFieldName="Area" errorMsg="基础段[发生地点]数据项类型为N的数据项，每一位必须是0～9的数字，对于无法填报的可选型数据项要用半角空格填充" errorCode="3141012" reverseCheck="true"/>
 					<rule name="rule2-3-2" checkType="FC" checkedFieldName="DataOpened" errorMsg="基础段[开户日期]数据项类型为N的数据项，每一位必须是0～9的数字，对于无法填报的可选型数据项要用半角空格填充" errorCode="2101012" reverseCheck="true"/>
@@ -1223,7 +1219,7 @@
                 </rule>                
             </checkrules>
         </message>
-        <message tasktype="4" version="1.3" headerLength="147" readerVersion="1.1" charset="GB18030">
+        <message tasktype="4" version="1.3" headerLength="147" readerVersion="1.3" charset="GB18030">
             <segment name="Head" segmentLength="147" opitional="false" unique="true">
                 <field name="Version" type="AN" trimoption="3" startPosition="0" endPosition="2" opitional="false"/>
                 <field name="FinianceCode" type="AN" trimoption="3" startPosition="3" endPosition="16" opitional="false"/>
@@ -1343,8 +1339,6 @@
 					    errorMsg="基础段[证件类型]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "5107013"/>
 					<rule name="rule-type" checkType="FC" checkedFieldName="CertNo" reverseCheck="true"
 					    errorMsg="基础段[证件号码]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "5109013"/>
-					<!--rule name="rule-type" checkType="FC" checkedFieldName="ReservedA" reverseCheck="true"
-					    errorMsg="基础段[预留字段]数据项类型为AN或ANC的必填数据项，数据项值不能为空且不能为空格（含全角和半角空格）,数据项值必须在编码范围里。可选型数据项，无法填报时必须用半角空格（0X20）填充" errorCode = "8107013"/-->
 		
 					<rule name="rule2-3-1" checkType="FC" checkedFieldName="Area" errorMsg="基础段[发生地点]数据项类型为N的数据项，每一位必须是0～9的数字，对于无法填报的可选型数据项要用半角空格填充" errorCode="3141012" reverseCheck="true"/>
 					<rule name="rule2-3-2" checkType="FC" checkedFieldName="DataOpened" errorMsg="基础段[开户日期]数据项类型为N的数据项，每一位必须是0～9的数字，对于无法填报的可选型数据项要用半角空格填充" errorCode="2101012" reverseCheck="true"/>

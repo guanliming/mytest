@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.shadow.dao.ICommonDao">
+	
+
+	<insert id="insert" parameterType="java.util.Map"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into ${tableName}
+		<foreach collection="pairs.keys" item="key" open="(" close=")"
+			separator=",">
+			${key}
+		</foreach>
+		values
+		<foreach collection="pairs.keys" item="key" open="(" close=")"
+			separator=",">
+			'${pairs[key]}'
+		</foreach>
+	</insert>
+
+
+	<update id="update" parameterType="com.shadow.CommonEntity">
+		update ${tableName}
+		set
+		<foreach collection="pairs.keys" item="key" open="(" close=")"
+			separator=",">
+			${key} = '${pairs[key]}'
+		</foreach>
+	</update>
+
+	<select id="queryOne" parameterType="com.shadow.CommonEntity">
+		select * from #{tableName}
+		<where>
+			<foreach collection="pairs.keys" item="key" open="(" close=")"
+				separator=" and ">
+				${key} = '${pairs[key]}'
+			</foreach>
+		</where>
+	</select>
+
+	<select id="queryList" parameterType="com.shadow.CommonEntity">
+		select * from #{tableName}
+		<where>
+			<foreach collection="pairs.keys" item="key" open="(" close=")"
+				separator=" and ">
+				${key} = '${pairs[key]}'
+			</foreach>
+		</where>
+	</select>
+
+</mapper>

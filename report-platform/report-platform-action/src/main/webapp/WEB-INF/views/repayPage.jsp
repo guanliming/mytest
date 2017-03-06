@@ -9,7 +9,7 @@
 <body>
 	<div align="center">
 		本期应还<%=request.getAttribute("actualShouldRepay") %>
-		<form id="registerForm" action="http://localhost:8080/test-action/repay"
+		<form id="registerForm" action="http://localhost:8080/report-platform-action/repay"
 			method="post" >
 			<table border="0">
 				<tr>

@@ -7,4 +7,12 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>report-platform-entity</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.mobanker.common</groupId>
+			<artifactId>mobanker-core</artifactId>
+			<version>1.0.8-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

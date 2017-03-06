@@ -16,25 +16,25 @@
 
 	<select id="queryByBorrowId" parameterType="java.lang.Long"
 		resultMap="repayMap">
-		select * from dawn.repay where borrow_id = #{borrowId} order by period
+		select * from repay where borrow_id = #{borrowId} order by period
 	</select>
 	
 	<select id="queryByBorrowIdAndPeriod" 
 		resultMap="repayMap">
-		select * from dawn.repay where borrow_id = #{0} and period=#{1}
+		select * from repay where borrow_id = #{0} and period=#{1}
 	</select>
 
 
 	<select id="queryLatestBalance" resultMap="repayMap">
-		SELECT * FROM dawn.`repay` WHERE borrow_id = #{borrowId} AND balance='Y' ORDER BY period DESC LIMIT 1
+		SELECT * FROM `repay` WHERE borrow_id = #{borrowId} AND balance='Y' ORDER BY period DESC LIMIT 1
 	</select>
 	
 	<update id="update" parameterType="com.shadow.RepayEntity">
-		update dawn.repay set repay=#{repay},balance=#{balance},actual_should_repay=#{actualShouldRepay} where id = #{id}
+		update repay set repay=#{repay},balance=#{balance},actual_should_repay=#{actualShouldRepay} where id = #{id}
 	</update>
 	
 	<insert id="save" parameterType="com.shadow.RepayEntity">
-		INSERT INTO `dawn`.`repay`
+		INSERT INTO `repay`
             (`id`,
              `borrow_id`,
              `period`,

@@ -7,10 +7,10 @@
 <title>主页面</title>
 </head>
 <body>
-		你好呀，${sessionScope.SESSION_LOGIN_NAME}，欢迎登录！<a href="http://localhost:8080/test-action/signout">注销</a></br>
-		<a href="http://localhost:8080/test-action/borrowPage">我要借款</a>
-		<a href="http://localhost:8080/test-action/repayPage">我要还款</a>
-		<a href="http://localhost:8080/test-action/repayInfo">还款记录</a>
+		你好呀，${sessionScope.SESSION_LOGIN_NAME}，欢迎登录！<a href="http://localhost:8080/report-platform-action/signout">注销</a></br>
+		<a href="http://localhost:8080/report-platform-action/borrowPage">我要借款</a>
+		<a href="http://localhost:8080/report-platform-action/repayPage">我要还款</a>
+		<a href="http://localhost:8080/report-platform-action/repayInfo">还款记录</a>
 <%-- 		<%=request.getAttribute("msg")%> --%>
 		<%if(request.getAttribute("msg")!=null) {
 			%>
